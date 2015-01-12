@@ -1,0 +1,16 @@
+.logo
+{
+	color : #0d1ea3;
+	padding: 2%;
+	text-shadow : 2px 3px 5px #a8a8a8;
+
+}
+
+
+
+
+.logo > .outline-style: {
+	font-family:  Verdana, Geneva, sans-serif;
+	font-style: bold;
+}
+
