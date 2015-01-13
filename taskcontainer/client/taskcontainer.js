@@ -1,3 +1,4 @@
+
 Template.taskcontainer.helpers({
 	taskslist : function(){
 		return Tasks.find({}).fetch();
@@ -28,7 +29,12 @@ Template.taskcontainer.events({
 	 	if(!Session.get('EditFlag'))
 	 		{
 	 		 	
-	 		 		 Tasks.insert({task:taskvalue, status: false, createdAt: moment().format('DD-MM-YYYY hh:mm:ss a')});
+	 		 		 Meteor.call('insertTask',taskvalue,moment().format('DD-MM-YYYY hh:mm:ss a'),function(err){
+	 		 		 	if(err)
+	 		 		 	{
+	 		 	            console.log(err);
+	 		 		 	}
+	 		 		 })
 	 		 		 event.currentTarget.task.value = "";
 	 		 }
 	 	else
