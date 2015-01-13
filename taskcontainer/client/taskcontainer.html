@@ -11,16 +11,26 @@
 			<div class="list-group">
 				{{#each taskslist}}
 
-					<div class="list-group-item task-list-item {{taskcheckedclass status}}" data-task="{{_id}}">
-						<div class="row-action-primary checkbox">
+					<div class="list-group-item task-list-item {{taskcheckedclass status}}" >
+						<span class="close" data-task="{{_id}}"><i class="fa fa-times"></i></span>
+						<div class="row-action-primary checkbox" data-task="{{_id}}">
 				           <i class="fa fa-check"></i>
 				        </div>
 						<div class="row-content">
  
-							<h4 class="list-group-item-heading">
+							<h4 class="list-group-item-heading editable" data-type="text" >
 								{{task}}
 							</h4>
 							<p class="list-group-item-text">Added on {{createdAt}}</p>
+								{{#if status}}
+									<h6>Done!</h6>
+								{{else}}
+									<p class="list-group-item-text">
+									<button class="btn btn-xs btn-primary btn-default edit-btn" data-task="{{_id}}"><i class="fa fa-pencil"></i> Edit</button>
+							 		</p>
+								{{/if}}
+								
+							
 						</div>
 					</div>
 					<div class="list-group-separator"></div>
