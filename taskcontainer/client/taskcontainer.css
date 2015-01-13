@@ -3,3 +3,35 @@
 	padding : 10px;
 }
 
+
+.task-list-item-checked >.row-content>.list-group-item-heading
+{
+	text-decoration : line-through;
+	color : #cecece;
+}
+
+.task-list-item-checked >.row-content>.list-group-item-text
+{
+	color : #cecece;
+}
+
+
+.list-group .task-list-item-checked>.row-action-primary>i
+{
+	
+	color: #000;
+	background: rgba(0,0,0,0.1);
+}
+
+
+.list-group-item:hover{
+	text-shadow : 2px 3px 5px #a8a8a8;
+	background-color: #FFF;
+}
+
+.list-group .list-group-item:hover>.row-action-primary>i
+{
+	
+	color: #000;
+	background: rgba(0,0,0,0.1);
+}

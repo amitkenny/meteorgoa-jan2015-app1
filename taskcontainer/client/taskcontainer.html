@@ -1,5 +1,5 @@
 <template name="taskcontainer">
-	
+
 		<div class="task-container container">
 			<div class="col-sm-6">
 				<form method="post" id="taskform">
@@ -7,11 +7,25 @@
 					<input type="text" placeholder="What do you want to do?" name="task" id="task" class="form-control input-lg" autocomplete="off"> 
 				</div>
 			</form>
-			<ul>
+			
+			<div class="list-group">
 				{{#each taskslist}}
-				    <li>{{task}}</li>
+
+					<div class="list-group-item task-list-item {{taskcheckedclass status}}" data-task="{{_id}}">
+						<div class="row-action-primary checkbox">
+				           <i class="fa fa-check"></i>
+				        </div>
+						<div class="row-content">
+ 
+							<h4 class="list-group-item-heading">
+								{{task}}
+							</h4>
+							<p class="list-group-item-text">Added on {{createdAt}}</p>
+						</div>
+					</div>
+					<div class="list-group-separator"></div>
 				{{/each}}
-			</ul>
+			</div>
 			</div>
 		</div>
 </template>
