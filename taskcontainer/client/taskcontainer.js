@@ -8,13 +8,39 @@ Template.taskcontainer.helpers({
 		{
 			return 'task-list-item-checked';
 		}
+	},
+	inserterrormessage : function(){
+		return Session.get('insertError');
+	},
+	updatestatuserror : function(){
+		return Session.get('updateStatusError');
 	}
+})
+
+Tracker.autorun(function(){
+
+	if(Session.get('updateStatusError'))
+	{
+
+		toastr.error(Session.get('updateStatusError'),'Update-Error');
+	}
+
 })
 
 Template.taskcontainer.rendered = function () {
 	
+
      this.find('#task').value = "";
      Session.set('EditFlag',false);
+     Session.set('insertError',false);
+     Session.set('updateStatusError',false);
+     
+	if(Session.get('updateStatusError'))
+	{
+
+		toastr.error(Session.get('updateStatusError'),'Update-Error');
+	}
+
 
 };
 
@@ -32,7 +58,11 @@ Template.taskcontainer.events({
 	 		 		 Meteor.call('insertTask',taskvalue,moment().format('DD-MM-YYYY hh:mm:ss a'),function(err){
 	 		 		 	if(err)
 	 		 		 	{
-	 		 	            console.log(err);
+	 		 	            Session.set('insertError',err.reason);
+	 		 		 	}
+	 		 		 	else
+	 		 		 	{
+	 		 		 		Session.set('insertError',false);
 	 		 		 	}
 	 		 		 })
 	 		 		 event.currentTarget.task.value = "";
@@ -41,7 +71,17 @@ Template.taskcontainer.events({
 	 		{
 	 
 	            var task_id = Session.get('EditFlag');
-	            Tasks.update({_id : task_id}, {$set : {task : taskvalue}});
+	            Meteor.call('updateTask',task_id,taskvalue,function(err){
+	            	if(err)
+	            	{
+	            		Session.set('insertError',err.reason);
+	            	}
+	            	else
+	 		 		 	{
+	 		 		 		Session.set('insertError',false);
+	 		 		 	}
+
+	            })
 	            event.currentTarget.task.value = "";
 	            
 	 
@@ -53,9 +93,19 @@ Template.taskcontainer.events({
 	},
 	'click .row-action-primary' : function(event){
 		var task_id = event.currentTarget.dataset.task;
-		var task_status = Tasks.findOne({_id : task_id}).status;
-         
-		Tasks.update({_id : task_id},{$set : {status : !task_status }});
+		
+		Meteor.call('updateTaskStatus',task_id,function(err){
+	            	if(err)
+	            	{
+	            		Session.set('updateStatusError',err.reason);
+	            	}
+	            	else
+	 		 		 	{
+	 		 		 		Session.set('updateStatusError',false);
+	 		 		 	}
+
+	            })
+		
 
 	    
 	},
@@ -69,6 +119,12 @@ Template.taskcontainer.events({
 	'click .close' :function(event){
 		var task_id = event.currentTarget.dataset.task;
 		Session.set('EditFlag', false);
-		Tasks.remove({_id : task_id});
+		Meteor.call('deleteTask',task_id,function(err){
+			if(err)
+			{
+				console.log(err.reason);
+			}
+		})
+		
 	}
 })

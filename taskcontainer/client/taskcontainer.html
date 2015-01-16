@@ -1,7 +1,14 @@
 <template name="taskcontainer">
 
+		
 		<div class="task-container container">
+		    
 			<div class="col-sm-6">
+				{{#if inserterrormessage}}
+		    	<div class="text-danger">
+		    	{{inserterrormessage}}
+		   		 </div>
+		    {{/if}}
 				<form method="post" id="taskform">
 				<div class="form-group">
 					<input type="text" placeholder="What do you want to do?" name="task" id="task" class="form-control input-lg" autocomplete="off"> 
@@ -10,7 +17,7 @@
 			
 			<div class="list-group">
 				{{#each taskslist}}
-
+					
 					<div class="list-group-item task-list-item {{taskcheckedclass status}}" >
 						<span class="close" data-task="{{_id}}"><i class="fa fa-times"></i></span>
 						<div class="row-action-primary checkbox" data-task="{{_id}}">
@@ -18,7 +25,7 @@
 				        </div>
 						<div class="row-content">
  
-							<h4 class="list-group-item-heading editable" data-type="text" >
+							<h4 class="list-group-item-heading" data-type="text" >
 								{{task}}
 							</h4>
 							<p class="list-group-item-text">Added on {{createdAt}}</p>
@@ -36,6 +43,9 @@
 					<div class="list-group-separator"></div>
 				{{/each}}
 			</div>
+			<button class="btn btn-info btn-sm">
+				<i class="fa fa-trash fa-3x"></i> Delete All Done Tasks
+			</button>
 			</div>
 		</div>
 </template>

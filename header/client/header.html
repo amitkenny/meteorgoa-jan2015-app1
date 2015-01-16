@@ -8,9 +8,11 @@
     		<h4>Whats Next ? </h4>
 		</div>
 	</div>
-	<div class="row">
-		{{> loginButtons}}
-	</div>
+	{{#if currentUser}}
+		<div class="row">
+		Welcome, {{useremail}} <a href="#" id="signout">Sign Out</a>
+		</div>
+	{{/if}}
 
 	
 </template>

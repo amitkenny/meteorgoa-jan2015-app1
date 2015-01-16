@@ -19,6 +19,10 @@ Meteor.methods({
 		   }
 
 		}
+		else
+		{
+			throw new Meteor.Error('insert-error','You must be logged in to insert a new task');
+		}
 
 
 	}

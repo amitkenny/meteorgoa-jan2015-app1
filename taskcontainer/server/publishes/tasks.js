@@ -2,5 +2,9 @@
 
 Meteor.publish('tasks',function(){
 	
-	return Tasks.find({});
+	if(this.userId)
+	{
+		return Tasks.find({userId : this.userId});
+	}
+	
 });
